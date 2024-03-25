@@ -1,0 +1,35 @@
+{
+    "name": "innoboxrr/omni-billing-stripe",
+    "description": "El adaptador de Stripe para OmniBilling proporciona una integraci\u00f3n sin fisuras con la pasarela de pago de Stripe, permitiendo a los desarrolladores ejecutar transacciones de pago, gestionar suscripciones y manejar clientes con facilidad, todo ello a trav\u00e9s de la interfaz estandarizada de OmniBilling.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Innoboxrr\\OmniBillingStripe\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Homero Raul",
+            "email": "h.raulvc@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require-dev": {
+        "orchestra/testbench": "^8",
+        "innoboxrr/larapack-generator": "^4.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Innoboxrr\\OmniBillingStripe\\Providers\\AppServiceProvider"
+            ]
+        },
+        "omni-billing": {
+            "stripe": "Innoboxrr\\OmniBillingStripe\\Adapter\\StripeAdapter"
+        }
+    },
+    "require": {
+        "stripe/stripe-php": "^13.14"
+    }
+}
