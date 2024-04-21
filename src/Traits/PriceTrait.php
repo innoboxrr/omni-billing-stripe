@@ -20,7 +20,7 @@ trait PriceTrait
             ->post($this->getUrl('/v1/prices'), $data);
         
         if ($response->failed()) {
-            throw new \Exception('Failed to create product');
+            throw new \Exception('Failed to create price');
         }
 
         dd($response->json());
