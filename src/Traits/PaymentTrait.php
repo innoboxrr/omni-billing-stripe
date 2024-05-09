@@ -2,30 +2,42 @@
 
 namespace Innoboxrr\OmniBillingStripe\Traits;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
+use Innoboxrr\OmniBillingStripe\Responses\PaymentResponse;
 
 trait PaymentTrait 
 {
-    public function charge(array $data)
+    public function charge(array $data) : PaymentResponse
     {
-        // Validar data
-            // ...
-
-        // Normalizar data
-            // ...
-
         $response = Http::withBasicAuth($this->token, '')
                 ->asForm()
-                ->post($this->getUrl('/v1/checkout/sessions'), $data);
-
-
+                ->post($this->getUrl('/v1/checkout/sessions'), [
+                    'success_url' => $this->getSuccessRedirect($data),
+                    'cancel_url' => $this->cancelRedirect . '?id=' . $data['id'],
+                    'line_items' => [
+                        [
+                            'price_data' => [
+                                'currency' => $data['currency'],
+                                'product_data' => [
+                                    'name' => $data['name'] ?? config('app.name') . ' Payment',
+                                    'description' => $data['description'] ?? '',
+                                ],
+                                'unit_amount' => $data['amount'] * 100,
+                            ],
+                            'quantity' => 1,
+                        ],
+                    ],
+                    'mode' => 'payment',
+                    'customer_email' => $data['email'],
+                    'metadata' => [
+                        'user_name' => $data['user_name'],
+                        'order_id' => $data['id'],
+                    ]
+                ]);
         if ($response->failed()) {
-            throw new \Exception('Failed to create product');
+            throw new \Exception('Failed charge');
         }
-
-        dd($response->json());
+        return new PaymentResponse($response->json());
     }
 
     public function refund($transactionId, $amount = null)

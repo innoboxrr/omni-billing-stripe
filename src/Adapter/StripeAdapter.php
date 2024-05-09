@@ -29,6 +29,8 @@ class StripeAdapter extends Adapter implements ProductInterface, PriceInterface,
 
     protected $stripe;
 
+    protected $token;
+
     public function __construct(array $config = [])
     {
         parent::__construct($config);
@@ -37,7 +39,6 @@ class StripeAdapter extends Adapter implements ProductInterface, PriceInterface,
     protected function setUp($config = [])
     {   
         parent::setUp($config);
-
         $this->token = ($this->secret . ':');
     }
 
