@@ -40,6 +40,22 @@ trait PaymentTrait
         return new PaymentResponse($response->json());
     }
 
+    public function verify($transaction) : bool
+    {
+        $response = Http::withBasicAuth($this->token, '')
+                ->get($this->getUrl('/v1/checkout/sessions/' . $transaction['id']));
+        if ($response->failed()) {
+            throw new \Exception('Failed to verify session');
+        }
+
+        $response = new PaymentResponse($response->json());
+
+        if ($response->getStatus() === 'complete') {
+            return true;
+        }
+        return false;
+    }
+
     public function refund($transactionId, $amount = null)
     {
         dd('Stripe: refund');
