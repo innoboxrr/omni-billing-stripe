@@ -2,9 +2,11 @@
 
 namespace Innoboxrr\OmniBillingStripe\Traits;
 
+use Innoboxrr\OmniBillingStripe\Responses\SubscriptionResponse;
+
 trait SubscriptionTrait
 {
-    public function createSubscription($customer, $plan)
+    public function createSubscription(array $data): SubscriptionResponse
     {
         dd('Stripe: createSubscription');
     }
