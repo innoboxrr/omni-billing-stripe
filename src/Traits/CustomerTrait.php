@@ -42,7 +42,7 @@ trait CustomerTrait
             ->asForm()
             ->post($this->getUrl('/v1/billing_portal/sessions'), [
                 'customer' => $customerId,
-                'return_url' => config('omnibilling.processors_config.stripe.portal_return_url'), 
+                'return_url' => url(config('omnibilling.processors_config.stripe.portal_return_uri')), 
             ]);
 
         if ($response->failed()) {
