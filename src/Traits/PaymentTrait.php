@@ -13,7 +13,7 @@ trait PaymentTrait
                 ->asForm()
                 ->post($this->getUrl('/v1/checkout/sessions'), [
                     'success_url' => $this->getSuccessRedirect($data),
-                    'cancel_url' => $this->cancelRedirect . '?id=' . $data['id'],
+                    'cancel_url' => $this->getCancelRedirect($data),
                     'line_items' => [
                         [
                             'price_data' => [
