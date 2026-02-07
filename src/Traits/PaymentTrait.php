@@ -10,6 +10,9 @@ trait PaymentTrait
     public function charge(array $data) : PaymentResponse
     {
         $response = Http::withBasicAuth($this->token, '')
+                ->withHeaders([
+                    'Idempotency-Key' => 'charge_' . ($data['id'] ?? uniqid()),
+                ])
                 ->asForm()
                 ->post($this->getUrl('/v1/checkout/sessions'), [
                     'success_url' => $this->getSuccessRedirect($data),
