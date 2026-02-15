@@ -9,6 +9,7 @@ use Innoboxrr\OmniBilling\Contracts\{
     CustomerInterface,
     PaymentInterface,
     SubscriptionInterface,
+    WebhookInterface,
 };
 
 use Innoboxrr\OmniBillingStripe\Traits\{
@@ -17,15 +18,17 @@ use Innoboxrr\OmniBillingStripe\Traits\{
     CustomerTrait,
     PaymentTrait,
     SubscriptionTrait,
+    WebhookTrait,
 };
 
-class StripeAdapter extends Adapter implements ProductInterface, PriceInterface, CustomerInterface, PaymentInterface, SubscriptionInterface
+class StripeAdapter extends Adapter implements ProductInterface, PriceInterface, CustomerInterface, PaymentInterface, SubscriptionInterface, WebhookInterface
 {
     use ProductTrait,
         PriceTrait,
         CustomerTrait,
         PaymentTrait,
-        SubscriptionTrait;
+        SubscriptionTrait,
+        WebhookTrait;
 
     protected $stripe;
 
