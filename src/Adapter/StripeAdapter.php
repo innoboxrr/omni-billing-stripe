@@ -18,6 +18,7 @@ use Innoboxrr\OmniBillingStripe\Traits\{
     CustomerTrait,
     PaymentTrait,
     SubscriptionTrait,
+    CouponTrait,
     WebhookTrait,
 };
 
@@ -28,6 +29,7 @@ class StripeAdapter extends Adapter implements ProductInterface, PriceInterface,
         CustomerTrait,
         PaymentTrait,
         SubscriptionTrait,
+        CouponTrait,
         WebhookTrait;
 
     protected $stripe;
